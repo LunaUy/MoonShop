@@ -1,0 +1,26 @@
+﻿@page "/"
+
+@foreach (var product in Products)
+{
+    <a href="/product">Ver producto</a>
+    <div class="row">
+        <div class="col-auto">
+            <img style="max-height:200px;" src="@product.Image"/>
+        </div>
+        <div class="col">
+            <h2>@product.Name</h2>
+            <span class="price">@product.Price</span>
+            <button class="btn btn-primary">comprar</button>
+        </div>
+    </div>
+}
+
+
+
+@code {
+List<Product> Products = new List<Product>()
+    { 
+        new Product("Peluche osito love", "https://i.pinimg.com/originals/34/d8/6e/34d86e78afc427276d930df7df7ad4ee.jpg", 205), 
+        new Product("Peluche osito te amo", "https://www.novodistribuciones.com/109053-large_default/oso-de-peluche-te-amo.jpg",230)
+    }; 
+}
