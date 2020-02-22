@@ -156,7 +156,7 @@ app {
     }
 
     .sidebar {
-        width: 250px;
+        width: 210px;
         height: 100vh;
         position: sticky;
         top: 0;
@@ -180,4 +180,17 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+}
+
+
+/* SITE */
+
+.price {
+    font-size:1.5rem;
+}
+.currency {
+    position:relative;
+    top:-.3rem;
+    font-size:1rem;
+    padding-right:2px;
 }
