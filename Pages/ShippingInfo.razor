@@ -1,0 +1,31 @@
+﻿@inject NavigationManager Navigation
+<h3>Datos de entrega</h3>
+
+
+<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>
+        Nombre
+        <InputText @bind-Value="model.Name" />
+    </label>
+    <label>
+        Dirección
+        <InputText @bind-Value="model.Address" />
+    </label>
+    <label>
+        Teléfono
+        <InputText @bind-Value="model.Phone" />
+    </label>
+
+    <button type="submit">Enviar a ésta dirección</button>
+</EditForm>
+
+@code {
+    private ShippingDetail model = new ShippingDetail();
+
+    private void HandleValidSubmit()
+    {
+        Navigation.NavigateTo("/confirm");
+    }
+}

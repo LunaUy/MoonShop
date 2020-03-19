@@ -1,10 +1,11 @@
-@page "/product"
-
-<h1>Detalle del producto</h1>
-
+@page "/product/{id:int}"
+@inject ProductService  ProductService
+@inject CartService CartService
+@inject NavigationManager Navigation
 <section class="product">
 
     <div class="row">
+<<<<<<< HEAD
             <div>
                 <button class="btn btn-dark">Back</button>
             </div>
@@ -28,11 +29,41 @@
             <p>Envio arregle con el vendedor. Retiro en casa o local del vendedor consultar con el, (dia y hora). Modo de pago: unicamente pago con efectivo</p>
         </div>
     </div> 
+=======
+        <div class="col-6">
+            <div class="text-center">
+                <img class="img-fluid" src="@product.Image" style="max-height:700px;" />
+            </div>
+        </div>
+
+        <div class="col-5">
+            <h2>@product.Name</h2>
+            <p class="price"><span class="currency">$</span>@product.Price</p>
+            <button class="btn btn-info" @onclick="AddToCart">Agregar al carrito</button>
+            <p>@product.Description</p>
+            <p>Envio arregle con el vendedor. Retiro en casa o local del vendedor consultar con el, (dia y hora). 
+            Modo de pago: se acepta tarjeta por la web o en caso de retiro unicamente pago con efectivo</p>
+        </div>
+    </div>
+>>>>>>> 7277c0898488fe12963d194cc44b14531c4c6107
 
 
 </section>
 
 @code {
-    
+    [Parameter]
+    public int Id { get; set; }
 
+    Product product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProduct(Id);
+    }
+
+    public async Task AddToCart()
+    {
+        await CartService.AddToCart(product);
+        Navigation.NavigateTo("/cart");
+    }
 }

@@ -1,26 +1,37 @@
 ﻿@page "/"
-
-@foreach (var product in Products)
-{
-    <a href="/product">Ver producto</a>
+@inject ProductService ProductService
+<div class="container-fluid">
     <div class="row">
-        <div class="col-auto">
-            <img style="max-height:200px;" src="@product.Image"/>
-        </div>
-        <div class="col">
-            <h2>@product.Name</h2>
-            <span class="price">@product.Price</span>
-            <button class="btn btn-primary">comprar</button>
-        </div>
+        @foreach (var product in products)
+        {
+            <div class="col-2 text-center" style="height:380px">
+                <div class="p-4">
+                    <a href="/product/@product.Id">
+                        <div style="height:240px;">
+                            <img class="img-fluid" src="@product.Image" />
+                        </div>
+
+                        <p>@product.Name</p>
+                    </a>
+                    <p class="price"><span class="currency">$</span>@product.Price</p>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>
+
+
 
 
 
 @code {
-List<Product> Products = new List<Product>()
-    { 
-        new Product("Peluche osito love", "https://i.pinimg.com/originals/34/d8/6e/34d86e78afc427276d930df7df7ad4ee.jpg", 205), 
-        new Product("Peluche osito te amo", "https://www.novodistribuciones.com/109053-large_default/oso-de-peluche-te-amo.jpg",230)
-    }; 
+
+    private Product[] products;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProducts();
+    }
+
 }

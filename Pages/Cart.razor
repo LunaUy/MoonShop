@@ -1,0 +1,53 @@
+﻿@page "/cart"
+@inject CartService CartService
+<h1 class="text-center">Carrito de compras</h1>
+@if (products.Any())
+{
+
+    <div class="table-responsive">
+        <table class="table table-striped m-auto" style="max-width:600px;">
+
+            <tbody>
+                @foreach (var item in products)
+                {
+                    <tr>
+                        <td><img src="@item.Image" class="img-thumbnail img-fluid mr-5" style="max-height:120px" />@item.Name</td>
+                        <td style="vertical-align:middle;"><p class="price"><span class="currency">$</span>@item.Price</p></td>
+                    </tr>
+                }
+                <tr>
+                    <td><p class="price">Total</p></td>
+                    <td><p class="price"><span class="currency">$</span>@products.Sum(x => x.Price)</p></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                <div class="text-right">
+                    <button class="btn btn-dark">Comprar</button>
+                </div>
+
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p>No tiene ningun juguete en el carrito.</p>
+        <a href="/">ver listado de juguetes</a>
+    </div>
+}
+
+@code {
+
+    List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await CartService.GetProducts();
+    }
+
+}
